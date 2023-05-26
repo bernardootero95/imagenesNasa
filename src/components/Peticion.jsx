@@ -17,12 +17,15 @@ const Peticion = () => {
         }   
     }
 
+    React.useEffect(() => {
+        traerImagenes();
+      }, [dateStart, dateEnd]);
     
     
     const siguiente = () => {
         setDateStart((prevDateStart) => getNextMonthDate(prevDateStart));
         setDateEnd((prevDateEnd) => getNextMonthDate(prevDateEnd));
-        traerImagenes()
+    
     };
       
 
@@ -43,7 +46,6 @@ const Peticion = () => {
           setDateStart(newDateStart);
           setDateEnd(newDateEnd);
         }
-        traerImagenes()
     };
     
     const getNextMonthDate = (date) => {
