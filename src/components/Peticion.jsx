@@ -66,23 +66,31 @@ const Peticion = () => {
         return formattedDate;
     };
     return (
-        <div>
-          <h1>IMAGENES DEL ESPACIO POR LA NASA</h1>
-          <button onClick={atras}>Atrás</button>
-          <button onClick={traerImagenes}>Traer Imagenes</button>
-          <button onClick={siguiente}>Siguiente</button>
-      
-          {imagenes?.length === 0 ? (
-            <p>No hay imágenes disponibles</p>
-          ) : (
-            imagenes?.map(({ date, title, explanation, url }) => (
-              <div key={date}>
-                <h3>{date} - {title}</h3>
-                <img src={url} alt={title} />
-                <h4>{explanation}</h4>
-              </div>
-            ))
-          )}
+        <div className='container'>
+            <h1 className="text-center text-primary my-4">IMÁGENES DE LA NASA</h1>
+            <div className="position-absolute top-0 start-0">
+                <button className="btn btn-outline-primary m-2 ">Atrás</button>
+            </div>
+            <div className="position-absolute top-0 end-0">
+                <button className="btn btn-outline-primary m-2">Siguiente</button>
+            </div>
+            <div className="d-flex flex-wrap justify-content-center">
+            {
+                imagenes?.map(({ date, title, explanation, hdurl }) => (
+                <div className='card' style={{width: "600px"}} key={date}>
+                    <img src={hdurl} className="card-img-top img-fluid" style={{  height: 'auto' }} alt={title} />
+                    <div className='card-body'>
+                        <h4 className='card-title'> {title} ( {date} )</h4>
+                        <p className='card-text'>{explanation}</p>
+                    </div>
+                </div>
+                ))
+            }
+            </div>
+            <footer className="bg-primary text-white text-center p-3 mt-5 ">
+                Elaborado por Bernardo Andres Otero Jimenez
+                mediante la API de la NASA - APOD:Astronomy pictureof the day
+            </footer>
         </div>
       );
       
