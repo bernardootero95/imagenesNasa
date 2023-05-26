@@ -4,7 +4,7 @@ import React from 'react'
 const Peticion = () => {
     const [imagenes, setImagenes] = React.useState([])
     const [dateStart, setDateStart] = React.useState("1995-06-16")
-    const [dateEnd, setDateEnd] = React.useState("1995-06-25")
+    const [dateEnd, setDateEnd] = React.useState("1995-06-30")
     
     const traerImagenes = async() =>{
         try{
@@ -16,37 +16,53 @@ const Peticion = () => {
             console.log(error)
         }   
     }
-    const siguiente = () => {
-        const currentDateStart = new Date(dateStart);
-        const currentDateEnd = new Date(dateEnd);
-        currentDateStart.setDate(currentDateStart.getDate() + 10);
-        currentDateEnd.setDate(currentDateEnd.getDate() + 10);
-        const formattedDateStart = formatDate(currentDateStart);
-        const formattedDateEnd = formatDate(currentDateEnd);
-        setDateStart(formattedDateStart);
-        setDateEnd(formattedDateEnd);
-        traerImagenes();
-      };
-    
-      const atras = () => {
-        const currentDateStart = new Date(dateStart);
-        const currentDateEnd = new Date(dateEnd);
-        currentDateStart.setDate(currentDateStart.getDate() - 10);
-        currentDateEnd.setDate(currentDateEnd.getDate() - 10);
-        const formattedDateStart = formatDate(currentDateStart);
-        const formattedDateEnd = formatDate(currentDateEnd);
-        setDateStart(formattedDateStart);
-        setDateEnd(formattedDateEnd);
-        traerImagenes();
-      };
 
-      const formatDate = (date) => {
+    
+    
+    const siguiente = () => {
+        setDateStart((prevDateStart) => getNextMonthDate(prevDateStart));
+        setDateEnd((prevDateEnd) => getNextMonthDate(prevDateEnd));
+        traerImagenes()
+    };
+      
+
+
+    const atras = () => {
+        const currentDate = new Date(dateStart);
+        const prevMonth = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() - 1,
+          16
+        );
+        const newDateStart = formatDate(prevMonth);
+        const newDateEnd = dateStart;
+        if (newDateStart < "1995-06-16") {
+          setDateStart("1995-06-16");
+          setDateEnd("1995-07-15");
+        } else {
+          setDateStart(newDateStart);
+          setDateEnd(newDateEnd);
+        }
+        traerImagenes()
+    };
+    
+    const getNextMonthDate = (date) => {
+        const currentDate = new Date(date);
+        const nextMonth = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          16
+        );
+        return formatDate(nextMonth);
+    };
+    
+    const formatDate = (date) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
         return formattedDate;
-      };
+    };
     return (
         <div>
           <h1>IMAGENES DEL ESPACIO POR LA NASA</h1>
