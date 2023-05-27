@@ -69,10 +69,10 @@ const Peticion = () => {
         <div className='container'>
             <h1 className="text-center text-primary my-4">IMÁGENES DE LA NASA</h1>
             <div className="position-absolute top-0 start-0">
-                <button className="btn btn-outline-primary m-2 ">Atrás</button>
+                <button className="btn btn-outline-primary m-2 "onClick={atras}>Atrás</button>
             </div>
             <div className="position-absolute top-0 end-0">
-                <button className="btn btn-outline-primary m-2">Siguiente</button>
+                <button className="btn btn-outline-primary m-2" onClick={siguiente}>Siguiente</button>
             </div>
             <div className="d-flex flex-wrap justify-content-center">
             {
